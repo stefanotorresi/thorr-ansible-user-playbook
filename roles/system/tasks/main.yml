@@ -1,0 +1,13 @@
+---
+- name: Load distro specific variables
+  include_vars: "{{ ansible_pkg_mgr }}.yml"
+
+- include: debian.yml
+  when: ansible_os_family == "Debian"
+
+- include: redhat.yml
+  when: ansible_os_family == "Redhat"
+
+- include: arch.yml
+  when: ansible_os_family == "Archlinux"
+

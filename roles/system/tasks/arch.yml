@@ -1,0 +1,10 @@
+---
+- name: Update Pacman cache
+  sudo: true
+  pacman: update_cache=yes
+  when: update_package_manager_cache
+
+- name: Install system packages (Pacman)
+  sudo: true
+  pacman: name={{ item }} state=present
+  with_items: system_packages

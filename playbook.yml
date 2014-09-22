@@ -1,0 +1,8 @@
+---
+- hosts: all
+  vars:
+    update_package_manager_cache: false
+  roles:
+    - system
+    - user
+    - zsh

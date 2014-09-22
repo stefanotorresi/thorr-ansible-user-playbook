@@ -1,0 +1,5 @@
+---
+- name: Install system packages (Yum)
+  sudo: true
+  yum: name={{ item }} state=latest
+  with_items: system_packages
