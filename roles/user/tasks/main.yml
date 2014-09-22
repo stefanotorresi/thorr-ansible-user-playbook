@@ -1,6 +1,6 @@
 ---
 - name: Load user password hash
-  include_vars: user_password.yml
+  include_vars: user_password_hash.yml
 
 - name: Add groups
   sudo: true
@@ -12,7 +12,7 @@
 
 - name: Add user
   sudo: true
-  user: name={{ user_name }} password={{ user_password }} groups=admin,adm,sudo append=yes generate_ssh_key=yes
+  user: name={{ user_name }} password={{ user_password_hash }} groups=admin,adm,sudo append=yes generate_ssh_key=yes
 
 - name: Add user RSA key
   sudo: true
@@ -28,11 +28,19 @@
 
 - name: Add sudo group to sudoers
   sudo: true
-  lineinfile: dest=/tmp/sudoers state=present regexp='^%sudo ALL=(ALL:ALL) ALL' line='%sudo ALL=(ALL:ALL) ALL'
+  lineinfile: dest=/tmp/sudoers state=present regexp='^%sudo[\s]+ALL\=\(ALL:ALL\) ALL' line='%sudo ALL=(ALL:ALL) ALL'
 
 - name: Keep ssh-agent env variable through sudo
   sudo: true
-  lineinfile: dest=/tmp/sudoers state=present regexp='^Defaults env_keep\+\=SSH_AUTH_SOCK' line='Defaults env_keep+=SSH_AUTH_SOCK'
+  lineinfile: dest=/tmp/sudoers state=present regexp='^Defaults[\s]+env_keep\+\=SSH_AUTH_SOCK' line='Defaults env_keep+=SSH_AUTH_SOCK'
+
+- name: Change default visudo editor to vim
+  sudo: true
+  lineinfile: dest=/tmp/sudoers state=present regexp='^Defaults[\s]+editor\=/usr/bin/vim' line='Defaults editor=/usr/bin/vim'
+
+- name: Set custom sudo timestamp for user
+  sudo: true
+  lineinfile: dest=/tmp/sudoers state=present regexp='^Defaults:etienne[\s]+timestamp_timeout\=30' line='Defaults:etienne timestamp_timeout=30'
 
 - name: Check sudoers file sanity and apply changes
   sudo: true
