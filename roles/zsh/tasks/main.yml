@@ -17,7 +17,7 @@
 - name: Clone oh-my-zsh repo
   sudo: true
   sudo_user: "{{ user_name }}"
-  git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest="/home/{{ user_name }}/.oh-my-zsh"
+  git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest="/home/{{ user_name }}/.oh-my-zsh" update=no
 
 - name: deploy .zshrc
   sudo: true
