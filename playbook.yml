@@ -1,8 +1,9 @@
 ---
 - hosts: all
   vars:
-    user_name: # change here
-    update_package_manager_cache: true
+    update_package_manager_cache: false
+  vars_files:
+    - vars/user.yml
   roles:
     - { role: system, tags: [ 'system' ] }
     - { role: user, tags: [ 'user' ] }

@@ -1,7 +1,4 @@
 ---
-- name: Load user password hash
-  include_vars: user_password_hash.yml
-
 - name: Add groups
   sudo: true
   group: name={{ item }} state=present
