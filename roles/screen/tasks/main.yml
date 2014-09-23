@@ -1,0 +1,20 @@
+---
+- name: Install screen (Apt)
+  sudo: true
+  apt: name=screen state=latest
+  when: ansible_pkg_mgr == "apt"
+
+- name: Install screen (Yum)
+  sudo: true
+  yum: name=screen state=latest
+  when: ansible_pkg_mgr == "yum"
+
+- name: Install screen (Pacman)
+  sudo: true
+  pacman: name=screen state=present
+  when: ansible_pkg_mgr == "pacman"
+
+- name: deploy .screenrc
+  sudo: true
+  sudo_user: "{{ user_name }}"
+  copy: src=screenrc dest="/home/{{ user_name }}/.screenrc"
