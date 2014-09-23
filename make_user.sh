@@ -9,8 +9,8 @@ done
 
 HASH=$(mkpasswd --method=SHA-512)
 
-echo "---" > $USER_VAR_FILE
-echo "  user_name: $USER_NAME" >> $USER_VAR_FILE
-echo "  user_password_hash: $HASH" >> $USER_VAR_FILE
+echo "---" > $USER_VAR_FILE &&
+echo "  user_name: $USER_NAME" >> $USER_VAR_FILE &&
+echo "  user_password_hash: $HASH" >> $USER_VAR_FILE &&
 
 echo "User variables saved in $USER_VAR_FILE"
