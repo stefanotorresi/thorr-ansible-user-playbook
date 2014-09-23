@@ -1,9 +1,11 @@
 ---
 - hosts: all
   vars:
+    user_name: # change here
     update_package_manager_cache: true
   roles:
     - { role: system, tags: [ 'system' ] }
     - { role: user, tags: [ 'user' ] }
-    - { role: zsh, tags: [ 'zsh' ] }
-    - { role: vim, tags: [ 'vim' ] }
+    - { role: zsh, tags: [ 'zsh', 'user-settings' ] }
+    - { role: vim, tags: [ 'vim', 'user-settings' ] }
+    - { role: screen, tags: [ 'screen', 'user-settings' ] }
