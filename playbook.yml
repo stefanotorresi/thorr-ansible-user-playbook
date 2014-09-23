@@ -1,7 +1,7 @@
 ---
 - hosts: all
   vars:
-    update_package_manager_cache: false
+    update_package_manager_cache: true
   roles:
     - system
     - user
