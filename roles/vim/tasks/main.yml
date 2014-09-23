@@ -1,0 +1,40 @@
+---
+- name: Install vim (Apt)
+  sudo: true
+  apt: name=vim state=latest
+  when: ansible_pkg_mgr == "apt"
+
+- name: Install vim (Yum)
+  sudo: true
+  yum: name=vim state=latest
+  when: ansible_pkg_mgr == "yum"
+
+- name: Install vim (Pacman)
+  sudo: true
+  pacman: name=vim state=present
+  when: ansible_pkg_mgr == "pacman"
+
+- name: deploy .vimrc
+  sudo: true
+  sudo_user: "{{ user_name }}"
+  copy: src=vimrc dest="/home/{{ user_name }}/.vimrc"
+
+- name: Prepare Vim bundles dir
+  sudo: true
+  sudo_user: "{{ user_name }}"
+  file: path={{ item }} state=directory recurse=yes
+  with_items:
+    - ~/.vim/autoload
+    - ~/.vim/bundles
+
+- name: Install Vim Pathogen
+  sudo: true
+  sudo_user: "{{ user_name }}"
+  command: curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim creates=~/.vim/autoload/pathogen.vim
+
+- name: Install Vim bundles
+  sudo: true
+  sudo_user: "{{ user_name }}"
+  git: repo=https://github.com/{{ item.owner }}/{{ item.repo }}.git dest="/home/{{ user_name }}/.vim/bundles/{{ item.repo }}" update=no
+  with_items: vim_bundles
+

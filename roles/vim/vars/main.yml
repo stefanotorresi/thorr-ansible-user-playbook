@@ -1,0 +1,6 @@
+---
+vim_bundles:
+  - { owner: 'tpope', repo: 'vim-sensible'}
+  - { owner: 'tpope', repo: 'vim-surround'}
+  - { owner: 'airblade', repo: 'vim-gitgutter'}
+  - { owner: 'jamessan', repo: 'vim-gnupg'}
