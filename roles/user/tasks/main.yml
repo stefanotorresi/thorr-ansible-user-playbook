@@ -3,13 +3,12 @@
   sudo: true
   group: name={{ item }} state=present
   with_items:
-    - admin
     - adm
     - sudo
 
 - name: Add user
   sudo: true
-  user: name={{ user_name }} password={{ user_password_hash }} groups=admin,adm,sudo append=yes generate_ssh_key=yes
+  user: name={{ user_name }} password={{ user_password_hash }} groups=adm,sudo append=yes
 
 - name: Add user RSA key
   sudo: true
