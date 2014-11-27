@@ -38,6 +38,8 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git github npm gem composer bower vagrant sudo command-not-found cp history-substring-search)
 
+unsetopt NOMATCH
+
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
@@ -57,3 +59,7 @@ fi
 
 # added by travis gem
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+
+# ignore uninteresting user accounts
+zstyle ':completion:*:*:*:users' ignored-patterns \
+    kernoops
