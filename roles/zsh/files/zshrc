@@ -39,6 +39,7 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(git github npm gem composer bower vagrant sudo command-not-found cp history-substring-search)
 
 unsetopt NOMATCH
+unsetopt AUTO_CD
 
 source $ZSH/oh-my-zsh.sh
 
