@@ -40,6 +40,8 @@ plugins=(git github npm gem composer bower vagrant sudo command-not-found cp his
 
 unsetopt NOMATCH
 unsetopt AUTO_CD
+bindkey -r "\e\e" 
+bindkey "\es" sudo-command-line 
 
 source $ZSH/oh-my-zsh.sh
 
