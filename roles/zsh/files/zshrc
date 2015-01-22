@@ -40,8 +40,6 @@ plugins=(git github npm gem composer bower vagrant sudo command-not-found cp his
 
 unsetopt NOMATCH
 unsetopt AUTO_CD
-bindkey -r "\e\e" 
-bindkey "\es" sudo-command-line 
 
 source $ZSH/oh-my-zsh.sh
 
@@ -55,6 +53,8 @@ export EDITOR=vim
 
 bindkey "^[[5~" history-beginning-search-backward
 bindkey "^[[6~" history-beginning-search-forward
+bindkey -r "\e\e" 
+bindkey "\es" sudo-command-line 
 
 if [[ -s '/etc/zsh_command_not_found' ]]; then
     source '/etc/zsh_command_not_found'
