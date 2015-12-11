@@ -1,6 +1,7 @@
 alias l='ls -lh'
 alias ll='ls -lAh'
-alias la='ls -la'
-alias zf='php public/index.php'
-alias phpunit='XDEBUG_CONFIG="" phpunit'
+alias la='ls -laF'
 unalias _
+unalias c
+unalias hub
+function git() { hub $@; }
