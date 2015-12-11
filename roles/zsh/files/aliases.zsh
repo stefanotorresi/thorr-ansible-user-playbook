@@ -3,5 +3,5 @@ alias ll='ls -lAh'
 alias la='ls -laF'
 unalias _
 unalias c
-unalias hub
+unalias git
 function git() { hub $@; }
