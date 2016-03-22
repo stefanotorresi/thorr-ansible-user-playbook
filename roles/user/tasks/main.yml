@@ -1,44 +1,34 @@
 ---
 - name: Add groups
-  sudo: true
   group: name={{ item }} state=present
   with_items:
     - adm
     - sudo
 
 - name: Add user
-  sudo: true
   user: name={{ user_name }} password={{ user_password_hash }} groups=adm,sudo append=yes
 
 - name: Add user RSA key
-  sudo: true
   authorized_key: user={{ user_name }} key="{{ lookup('file', '/home/' + user_name + '/.ssh/id_rsa.pub') }}"
 
 - name: Create sudoers file backup
-  sudo: true
   command: cp -fa /etc/sudoers /etc/sudoers.bak
 
 - name: Make temporary copy of sudoers file
-  sudo: true
   command: cp -fa /etc/sudoers /tmp/sudoers
 
 - name: Add sudo group to sudoers
-  sudo: true
   lineinfile: dest=/tmp/sudoers state=present regexp="^%sudo[\s]+ALL\=\(ALL:ALL\) ALL" line="%sudo ALL=(ALL:ALL) ALL"
 
 - name: Keep ssh-agent env variable through sudo
-  sudo: true
   lineinfile: dest=/tmp/sudoers state=present regexp="^Defaults[\s]+env_keep\+\=SSH_AUTH_SOCK" line="Defaults env_keep+=SSH_AUTH_SOCK"
 
 - name: Change default visudo editor to vim
-  sudo: true
   lineinfile: dest=/tmp/sudoers state=present regexp="^Defaults[\s]+editor\=/usr/bin/vim" line="Defaults editor=/usr/bin/vim"
 
 - name: Set custom sudo timestamp for user
-  sudo: true
   lineinfile: dest=/tmp/sudoers state=present regexp="^Defaults:{{ user_name }}[\s]+timestamp_timeout\=30" line="Defaults:{{ user_name }} timestamp_timeout=30"
 
 - name: Check sudoers file sanity and apply changes
-  sudo: true
   shell: visudo -q -c -f /tmp/sudoers && mv /tmp/sudoers /etc/sudoers
 

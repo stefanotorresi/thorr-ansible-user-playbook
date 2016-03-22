@@ -1,10 +1,8 @@
 ---
 - name: Update APT cache
-  sudo: true
   apt:  update_cache=yes
   when: update_package_manager_cache
 
 - name: Install system packages (APT)
-  sudo: true
   apt: name={{ item }} state=latest
-  with_items: system_packages
+  with_items: "{{ system_packages }}"

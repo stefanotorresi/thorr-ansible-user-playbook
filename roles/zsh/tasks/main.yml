@@ -1,37 +1,30 @@
 ---
 - name: Install zsh (Apt)
-  sudo: true
   apt: name=zsh state=latest
   when: ansible_pkg_mgr == "apt"
 
 - name: Install zsh (Yum)
-  sudo: true
   yum: name=zsh state=latest
   when: ansible_pkg_mgr == "yum"
 
 - name: Install zsh (Pacman)
-  sudo: true
   pacman: name=zsh state=present
   when: ansible_pkg_mgr == "pacman"
 
 - name: Clone oh-my-zsh repo
-  sudo: true
-  sudo_user: "{{ user_name }}"
+  become_user: "{{ user_name }}"
   git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest="/home/{{ user_name }}/.oh-my-zsh" update=no
 
 - name: deploy .zshrc
-  sudo: true
-  sudo_user: "{{ user_name }}"
+  become_user: "{{ user_name }}"
   copy: src=zshrc dest="/home/{{ user_name }}/.zshrc"
 
 - name: deploy oh-my-zsh customizations
-  sudo: true
-  sudo_user: "{{ user_name }}"
+  become_user: "{{ user_name }}"
   copy: src={{ item }} dest="/home/{{ user_name }}/.oh-my-zsh/custom/{{ item }}"
   with_items:
     - aliases.zsh
     - thorr.zsh-theme
 
 - name: Set zsh as default shell
-  sudo: true
   user: name={{ user_name }} shell=/bin/zsh

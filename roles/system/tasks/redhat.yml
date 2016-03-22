@@ -1,10 +1,8 @@
 ---
 - name: Update YUM cache
-  sudo: true
   command: yum makecache
   when: update_package_manager_cache
 
 - name: Install system packages (Yum)
-  sudo: true
   yum: name={{ item }} state=latest
-  with_items: system_packages
+  with_items: "{{ system_packages }}"
