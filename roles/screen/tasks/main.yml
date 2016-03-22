@@ -12,5 +12,6 @@
   when: ansible_pkg_mgr == "pacman"
 
 - name: deploy .screenrc
+  become: true
   become_user: "{{ user_name }}"
-  copy: src=screenrc dest="/home/{{ user_name }}/.screenrc"
+  copy: src=screenrc dest="~/.screenrc"

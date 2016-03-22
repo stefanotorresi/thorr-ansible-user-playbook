@@ -12,16 +12,19 @@
   when: ansible_pkg_mgr == "pacman"
 
 - name: Clone oh-my-zsh repo
+  become: true
   become_user: "{{ user_name }}"
-  git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest="/home/{{ user_name }}/.oh-my-zsh" update=no
+  git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest="~/.oh-my-zsh" update=no
 
 - name: deploy .zshrc
+  become: true
   become_user: "{{ user_name }}"
-  copy: src=zshrc dest="/home/{{ user_name }}/.zshrc"
+  copy: src=zshrc dest="~/.zshrc"
 
 - name: deploy oh-my-zsh customizations
+  become: true
   become_user: "{{ user_name }}"
-  copy: src={{ item }} dest="/home/{{ user_name }}/.oh-my-zsh/custom/{{ item }}"
+  copy: src={{ item }} dest="~/.oh-my-zsh/custom/{{ item }}"
   with_items:
     - aliases.zsh
     - thorr.zsh-theme
